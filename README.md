@@ -63,7 +63,11 @@ Khi người dùng đăng nhập thành công với vai trò là:
 
 
 ## CSDL
-
-
+quan_an_db2024
+- bảng `user`:
+  - Cột `id`
+  - Cột `username`
+  - cột `password`
+  - Cột `role`: 0- user thường (customer); 1- nhân viên; 2- quản lý (chủ quán)
 
 ## API

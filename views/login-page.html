@@ -1,0 +1,115 @@
+<html lang="en">
+  <head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="Rest man" />
+    <meta name="description" content="Quản lý nhà hàng, quán ăn" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="../assets/images/favicon.png" type="" />
+
+    <title>B21DCAT134 - Quán ăn</title>
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css" />
+
+    <!--owl slider stylesheet -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <!-- nice select  -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css"
+      integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ=="
+      crossorigin="anonymous" />
+    <!-- font awesome style -->
+    <!-- <link href="css/font-awesome.min.css" rel="stylesheet" /> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <!-- Custom styles for this template -->
+    <link href="../assets/css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="../assets/css/responsive.css" rel="stylesheet" />
+  </head>
+  <body>
+    <section class="vh-100" style="background-color: #284010">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col col-xl-10">
+            <div class="card" style="border-radius: 1rem">
+              <div class="row g-0">
+                <div class="col-md-6 col-lg-5 d-none d-md-block">
+                  <img src="../assets/images/dangky(1).jpg" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem" />
+                </div>
+                <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                  <div class="card-body p-4 p-lg-5 text-black">
+                    <div class="d-flex align-items-center mb-3 pb-1">
+                      <a href="../index.php" class="btn btn-info">Quay lại trang chủ</a>
+                    </div>
+                    <form method="post">
+                      <div class="d-flex align-items-center mb-3 pb-1">
+                        <span class="h1 fw-bold mb-0">Quán ăn B21DCAT134</span>
+                      </div>
+
+                      <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px">Đăng nhập</h5>
+
+                      <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="text" name="username" id="form2Example17" class="form-control form-control-lg" placeholder="Nhập tên người dùng" required />
+                        <label class="form-label" for="form2Example17">Username</label>
+                      </div>
+
+                      <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="password" name="password" id="form2Example27" class="form-control form-control-lg" placeholder="Nhập mật khẩu" required />
+                        <label class="form-label" for="form2Example27">Password</label>
+                      </div>
+
+                      <div class="pt-1 mb-4">
+                        <button data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-lg btn-block" type="submit">Đăng nhập</button>
+                      </div>
+                      <p id="login_alert" class="mb-2 pb-lg-2" style="color: #ff2323"></p>
+
+                      <!-- <a class="small text-muted" href="#!">Forgot password?</a> -->
+                      <p class="mb-2 pb-lg-2" style="color: #284010">
+                        Chưa có tài khoản?
+                        <a href="./register-page.html" style="color: #727d40">Đăng ký</a>
+                      </p>
+                      <!-- <a href="#!" class="small text-muted">Chính sách.</a> -->
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- jQuery -->
+    <script src="../assets/js/jquery-3.4.1.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("form").submit(function (event) {
+          event.preventDefault() // Ngăn chặn form gửi thông thường
+
+          $.ajax({
+            type: "POST",
+            url: "../be/nguoiDung/login.php", // Đường dẫn đến file login.php
+            data: $(this).serialize(),
+            dataType: "json",
+            success: function (response) {
+              if (response.status === "success") {
+                window.location.href = response.redirect
+              } else {
+                $("#login_alert").html(response.message)
+              }
+            },
+            error: function () {
+              $("#login_alert").html("Có lỗi xảy ra. Vui lòng thử lại.")
+            },
+          })
+        })
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,168 @@
+<html lang="en">
+  <head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="Rest man" />
+    <meta name="description" content="Quản lý nhà hàng, quán ăn" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="../assets/images/favicon.png" type="" />
+
+    <title>B21DCAT134 - Quán ăn</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+
+    <!-- jQuery library -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script> -->
+    <!-- jQuery -->
+    <script src="../assets/js/jquery-3.4.1.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+    <section class="container-fluid" style="background-color: #9a616d">
+      <div class="container py-5">
+        <div class="row d-flex justify-content-center align-items-center">
+          <div class="col col-xl-11">
+            <div class="card" style="border-radius: 1rem">
+              <div class="row g-0">
+                <div class="col-md-6 col-lg-5 d-none d-md-block">
+                  <img src="../assets/images/dangnhap(1).jpg" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem" />
+                </div>
+                <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                  <div class="card-body p-4 p-lg-5 text-black">
+                    <div class="d-flex align-items-center mb-3 pb-1">
+                      <a href="../index.php" class="btn btn-info">Quay lại trang chủ</a>
+                    </div>
+                    <form id="register_form" method="post" action="../be/nguoiDung/login.php">
+                      <div class="d-flex align-items-center mb-3 pb-1">
+                        <span class="h1 fw-bold mb-0">Quán ăn B21DCAT134</span>
+                      </div>
+
+                      <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px">Đăng Ký</h5>
+                      <div class="row">
+                        <div data-mdb-input-init class="col form-outline mb-4">
+                          <input type="text" name="username" id="form2Example17" class="form-control form-control-lg" placeholder="Nhập tên người dùng" required />
+                          <label class="form-label" for="form2Example17">Username</label>
+                        </div>
+                        <div data-mdb-input-init class="col form-outline mb-4">
+                          <input type="text" name="sdt" id="sdt_id" class="form-control form-control-lg" placeholder="Nhập số điện thoại" required />
+                          <label class="form-label" for="sdt_id">Số điện thoại</label>
+                        </div>
+                      </div>
+
+                      <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="password" name="password" id="password_1" class="form-control form-control-lg" placeholder="Nhập mật khẩu" required />
+                        <label class="form-label" for="password_1">Password</label>
+                      </div>
+                      <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="password" name="re-password" id="password_2" class="form-control form-control-lg" placeholder="Nhập lại mật khẩu" required />
+                        <label class="form-label" for="password_2">Nhập lại password</label>
+                      </div>
+
+                      <div class="pt-1 mb-3">
+                        <button data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
+                      </div>
+
+                      <!-- Button to Open the Modal -->
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Open modal</button>
+
+                      <!-- The Modal -->
+                      <div class="modal" id="myModal">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                              <h4 class="modal-title">Modal Heading</h4>
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">Modal body..</div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- nếu như đăng ký thất bại thì in ra lỗi. -->
+                      <div id="register_alert" class="mb-2 pb-lg-2" style="color: #ff2323"></div>
+                      <!-- Modal -->
+                      <div class="modal fade" id="successModalId" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="false">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLongTitle">Đăng ký thành công</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">Bạn đã đăng ký thành công, vui lòng đăng nhập để thực hiện các chức năng khác hoặc quay lại trang chủ.</div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                              <button type="button" class="btn btn-primary"><a href="./login-page.html" style="color: aliceblue; text-decoration: none">Đăng nhập</a></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- <a class="small text-muted" href="#!">Forgot password?</a> -->
+                      <p class="mb-2 pb-lg-2" style="color: #393f81">
+                        Đã có tài khoản?
+                        <a href="./login-page.html" style="color: #4d56c9">Đăng nhập</a>
+                      </p>
+                      <a href="#!" class="small text-muted">Chính sách.</a>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      $(document).ready(function () {
+        $("form").submit(function (event) {
+          event.preventDefault() // Ngăn chặn form gửi thông thường
+          var phone = $("#sdt_id").val()
+          var phonePattern = /^[0-9]+$/
+
+          if ($("#password_1").val() !== $("#password_2").val()) {
+            $("#register_alert").html("Nhập lại mật khẩu không chính xác!")
+          } else if (!phonePattern.test(phone)) {
+            $("#register_alert").html("Số điện thoại không chính xác!")
+          } else {
+            $.ajax({
+              type: "POST",
+              url: "../be/nguoiDung/register.php", // Đường dẫn đến file login.php
+              data: $(this).serialize(),
+              dataType: "json",
+              success: function (response) {
+                if (response.status === "success") {
+                  $("#successModalId").modal("show")
+                } else {
+                  $("#register_alert").html(response.message)
+                }
+              },
+              error: function () {
+                $("#register_alert").html("Có lỗi xảy ra. Vui lòng thử lại.")
+              },
+            })
+          }
+        })
+      })
+    </script>
+  </body>
+</html>
