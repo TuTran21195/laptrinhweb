@@ -70,4 +70,14 @@ Khi người dùng đăng nhập thành công với vai trò là:
   - cột `password`
   - Cột `role`: 0- user thường (customer); 1- nhân viên; 2- quản lý (chủ quán)
 
+- Bảng `cart`: lưu thông tin về giỏ hàng của các KH(vớ các user_id khác nhau)
+- Bảng `order`: lưu thông tin về các đơn đặt hàng khác nhau
+  - Lưu ý rằng `cart` chỉ là giỏ hàng, người dùng thích thêm bao nhiêu sp cũng được và họ chưa đặt mua, cũng chẳng cần lưu lại tổng tiền.
+  - Còn `order` là những đơn hàng đã được đặt rồi, nó có trường đó là order_id, user_id(khóa ngoại đến bảng `user`), ngay_dat, tong_tien, trang_thai.
+  - Vì 1 đơn hàng thì có thể có nhiều món(mà mỗi món thì có thể đặt số lượng nhiều) → cần thêm một bảng `order_item` có các trường: order_item_id, order_id(khóa ngoại đến bảng `order`), food_id (khóa ngoại đến bảng `menu`), so_luong, don_gia (chú thích *), tong_tien(this.tong_tien = this.don_gia\*this.so_luong chứ không phải là tổng tiền của tất cả các món trong đơn hàng đâu)
+  
+  (chú thích *: cần lưu 1 cái don_gia riêng ra thay vì dùng khóa ngoại food_id để truy xuất đến giá trong menu là vì nếu trong bảng menu mà thay đổi giá, như thế thì đơn giá cũng thay đổi, điều này sẽ làm khó khăn, nhầm lẫn trong việc truy xuất lịch sử đơn hàng về sau nếu như có thêm các chức năng thống kê. Các chức năng thống kê này thường sẽ yêu cầu xem lịch sử đơn hàng của khách, nếu như giá ở bảng menu đã thay đổi mà ta không có đơn giá cũ tại thời điểm đơn hàng được đặt, vậy khi truy xuất đơn hàng thì giá của món đó sẽ là giá mới nhất của món ăn, điều này sẽ khiến việc tổng tiền cả đơn hàng bị sẽ không ăn khớp với đơn giá)
+
+
+
 ## API

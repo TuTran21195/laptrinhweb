@@ -126,15 +126,15 @@
               <form id="addForm" enctype="multipart/form-data">
                 <div class="form-group">
                   <label for="ten_mon">Tên món:</label>
-                  <input type="text" class="form-control" id="ten_mon" name="ten_mon" required />
+                  <input type="text" class="form-control" id="addModal_ten_mon" name="ten_mon" " required />
                 </div>
                 <div class="form-group">
                   <label for="gia">Giá:</label>
-                  <input type="number" class="form-control" id="gia" name="gia" required />
+                  <input type="number" class="form-control" id="addModal_gia" name="gia" required />
                 </div>
                 <div class="form-group">
                   <label for="loai">Loại:</label>
-                  <select type="text" class="form-control" id="loai" name="loai" required>
+                  <select type="text" class="form-control" id="addModal_loai" name="loai" required>
                     <option value="Bánh">Bánh</option>
                     <option value="Bún">Bún</option>
                     <option value="Canh">Canh</option>
@@ -145,18 +145,18 @@
                 </div>
                 <div class="form-group">
                   <label for="hien_thi">Hiển thị:</label>
-                  <select class="form-control" id="hien_thi" name="hien_thi">
+                  <select class="form-control" id="addModal_hien_thi" name="hien_thi">
                     <option value="1">On</option>
                     <option value="0">Off</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="mo_ta">Mô tả:</label>
-                  <textarea class="form-control" id="mo_ta" name="mo_ta"></textarea>
+                  <textarea class="form-control" id="addModal_mo_ta" name="mo_ta"></textarea>
                 </div>
                 <div class="form-group">
                   <label for="hinh_anh">Hình ảnh:</label>
-                  <input type="file" class="form-control" id="hinh_anh" name="hinh_anh" />
+                  <input type="file" class="form-control" id="addModal_hinh_anh" name="hinh_anh" />
                 </div>
                 <button type="submit" class="btn btn-primary">Thêm</button>
               </form>
@@ -253,6 +253,13 @@
             processData: false,
             success: function (response) {
               $("#addModal").modal("hide")
+              $("#addModal_ten_mon").val("")
+              $("#addModal_gia").val("")
+              $("#addModal_loai").val("")
+              $("#addModal_hien_thi").val("")
+              $("#addModal_mo_ta").val("")
+              $("#addModal_hinh_anh").val("")
+
               $("#noticeModal_message").html(response)
               $("#noticeModal").modal("show")
               loadMenu()

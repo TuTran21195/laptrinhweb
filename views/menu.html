@@ -1,0 +1,297 @@
+    <!-- end header section -->
+    </div>
+    <!-- food section -->
+    <section class="food_section layout_padding-bottom">
+      <div class="container">
+        <div class="heading_container heading_center">
+          <h2 class= "mt-2" >Menu món ăn</h2>
+        </div>
+
+        <div class="col-5 col-5 mt-3 mx-auto ">
+          <input type="text" id="search-box" class="form-control align-self-lg-center" placeholder="Tìm kiếm món ăn...">
+        </div>
+
+        <ul class="filters_menu">
+          <li class="active" data-filter="">Tất cả</li>
+          <li data-filter="Bánh" >Bánh</li>
+          <li data-filter="Bún" >Bún</li>
+          <li data-filter="Canh" >Canh</li>
+          <li data-filter="Cơm" >Cơm</li>
+          <li data-filter="Nước" >Nước</li>
+          <li data-filter="Khác" >Khác</li>
+        </ul>
+
+        <div class="filters-content">
+          <div class="row d-flex flex-wrap" id="food-items">
+            <!-- Food items will be loaded here via AJAX -->
+            <div class="col-sm-6 col-lg-4 all pizza">
+              <div class="box">
+                <div>
+                  <!-- hình ảnh của món ăn -->
+                  <div class="img-box">
+                    <img src="./assets/images/banh/banhca.png" alt="" /> 
+                  </div>
+                  <div class="detail-box">
+                    <h5>Tên món ăn</h5>
+                    <p>mô tả món ăn</p>
+                    <div class="options">
+                      <h6>Giá món ăn</h6>
+                      <a href="your-cart-page.html" class="cart-container">
+                        <i class="fas fa-shopping-cart cart-icon" style="font-size: 17px; color: aliceblue"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="btn-box">
+          <a href="">Xem thêm</a>
+        </div> -->
+      </div>
+      <!-- Thêm một modal để giúp việc KH chọn số lượng món ăn -->
+      <div class="modal fade" id="quantityModal" tabindex="-1" role="dialog" aria-labelledby="quantityModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="quantityModalLabel">Chọn số lượng</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <input type="number" id="quantity" class="form-control" min="1" value="1">
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" id="add-to-cart">Thêm vào giỏ hàng</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- MODAL GIỎ HÀNG =================== -->
+      <style>
+        .modal-fullscreen {
+          position: absolute;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            max-width: none;
+        }
+
+        .modal-fullscreen .modal-content {
+            height: 100%;
+            border: 0;
+            border-radius: 0;
+        }
+
+        .modal-fullscreen .modal-body {
+            overflow-y: auto;
+        }
+    </style>
+
+<div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cartModalLabel">Giỏ hàng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="cart-summary">
+                    <h5>Tổng tiền: <span id="total-price">0 VNĐ</span></h5>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Hình ảnh</th>
+                            <th>Tên món</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Tổng</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-items">
+                        <!-- Cart items will be loaded here via AJAX -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="delete-selected">Xóa món</button>
+                <button type="button" class="btn btn-primary" id="save-changes">Lưu thay đổi</button>
+                <button type="button" class="btn btn-success" id="place-order">Đặt hàng</button>
+            </div>
+        </div>
+    </div>
+</div>
+    </section>
+    <!-- end food section -->
+
+  <!-- jQery -->
+  <script src="./assets/js/jquery-3.4.1.min.js"></script>
+  <script>
+
+    $(document).ready(function() {
+      loadFoodItems();
+
+      function loadFoodItems(type = '', search = '') {
+          $.ajax({
+              url: './be/khachHang/get_food_items.php',
+              method: 'GET',
+              data: { type: type , search: search},
+              success: function(data) {
+                  let foodItems = JSON.parse(data);
+                  // let foodItems = data;
+                  let html = '';
+                  foodItems.forEach(item => {
+                    let imagePath = item.hinh_anh.replace('../uploads/', './be/uploads/');
+                    // Định dạng giá tiền
+                    let formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.gia);
+                      html += `
+                          <div class="col-sm-6 col-lg-4 all">
+                              <div class="box">
+                                  <div>
+                                      <div class="img-box">
+                                          <img src="${imagePath}" alt="" />
+                                      </div>
+                                      <div class="detail-box">
+                                          <h5>${item.ten_mon}</h5>
+                                          <p>${item.mo_ta}</p>
+                                          <div class="options">
+                                              <h6>${formattedPrice}</h6>
+                                              <a href="#" class="cart-container" data-id="${item.id}">
+                                                  <i class="fas fa-shopping-cart cart-icon" style="font-size: 17px; color: aliceblue"></i>
+                                              </a>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      `;
+                  });
+                  $('#food-items').html(html);
+              }
+          });
+      }
+
+      $('.filters_menu li').click(function () {
+          $('.filters_menu li').removeClass('active');
+          $(this).addClass('active');
+
+          var type_mon_an = $(this).attr('data-filter');
+          let search = $('#search-box').val();
+          console.log(type_mon_an, search); 
+          loadFoodItems(type_mon_an, search);
+      });
+
+      $('#search-box').on("input", function() {
+        let search = $(this).val();
+        let type = $('.filters_menu li.active').attr('data-filter') || '';
+        console.log(type, search); 
+        loadFoodItems(type, search);
+      });
+      
+      // Thêm sự kiện click cho biểu tượng giỏ hàng cạnh món ăn
+      $(document).on('click', '.cart-container', function(e) {
+          e.preventDefault();
+          let foodId = $(this).data('id');
+          $('#quantityModal').data('food-id', foodId).modal('show');
+      });
+
+      $('#add-to-cart').click(function() {
+          let foodId = $('#quantityModal').data('food-id');
+          let quantity = $('#quantity').val();
+          $.ajax({
+              url: './be/khachHang/add_to_cart.php',
+              method: 'POST',
+              data: { food_id: foodId, quantity: quantity },
+              success: function(response) {
+                  alert('Đã thêm vào giỏ hàng!');
+                  $('#quantityModal').modal('hide');
+              }
+          });
+      });
+
+    // Hiển thị giỏ hàng: Khi MODAL giỏ hàng được show thì
+    $('#cartModal').on('show.bs.modal', function() {
+        loadCartItems();
+    });
+
+    function loadCartItems() {
+        $.ajax({
+            url: './be/khachHang/get_cart.php',
+            method: 'GET',
+            success: function(data) {
+                let cartItems = JSON.parse(data);
+                let html = '';
+                let totalPrice = 0;
+                cartItems.forEach(item => {
+                    let itemTotal = item.price * item.quantity;
+                    let img_item = item.image.replace("../uploads/", "./be/uploads/");
+                    totalPrice += itemTotal;
+                    let formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.price);
+                    let formattedItemTotal = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(itemTotal);
+                    html += `
+                        <tr>
+                            <td><input type="checkbox" class="select-item" data-id="${item.id}"></td>
+                            <td><img src="${img_item}" alt="" style="width: 50px;"></td>
+                            <td>${item.name}</td>
+                            <td>${formattedPrice}</td>
+                            <td><input type="number" class="form-control item-quantity" data-id="${item.id}" value="${item.quantity}" min="1"></td>
+                            <td>${formattedItemTotal}</td>
+                        </tr>
+                    `;
+                });
+                $('#cart-items').html(html);
+                $('#total-price').text(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPrice));
+            }
+        });
+    }
+
+    // Xóa món
+    $('#delete-selected').click(function() {
+        let selectedItems = [];
+        $('.select-item:checked').each(function() {
+            selectedItems.push($(this).data('id'));
+        });
+        if (selectedItems.length > 0) {
+            $.ajax({
+                url: './be/khachHang/delete_from_cart.php',
+                method: 'POST',
+                data: { items: selectedItems },
+                success: function(response) {
+                    loadCartItems();
+                }
+            });
+        } else {
+            alert('Vui lòng chọn ít nhất một món để xóa.');
+        }
+    });
+
+    // Lưu thay đổi
+    $('#save-changes').click(function() {
+        let cartUpdates = [];
+        $('.item-quantity').each(function() {
+            let itemId = $(this).data('id');
+            let quantity = $(this).val();
+            cartUpdates.push({ id: itemId, quantity: quantity });
+        });
+        $.ajax({
+            url: './be/khachHang/update_cart.php',
+            method: 'POST',
+            data: { updates: cartUpdates },
+            success: function(response) {
+                loadCartItems();
+            }
+        });
+    });
+
+
+  })
+
+
+  </script>
