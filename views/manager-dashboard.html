@@ -1,0 +1,362 @@
+<html lang="en">
+  <head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="Rest man" />
+    <meta name="description" content="Quản lý nhà hàng, quán ăn" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="../assets/images/favicon.png" type="" />
+
+    <title>B21DCAT134 - Quán ăn</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+
+    <!-- jQuery library -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script> -->
+    <!-- jQuery -->
+    <script src="../assets/js/jquery-3.4.1.min.js"></script>
+    <!-- jQuery & DataTable -->
+    <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.4/css/dataTables.dataTables.min.css" />
+    <script charset="utf8" src="https://cdn.datatables.net/2.1.4/js/dataTables.min.js"></script>
+
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom styles for this template -->
+    <link href="../assets/css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="../assets/css/responsive.css" rel="stylesheet" />
+    <style>
+      .img-thumbnail {
+        max-width: 150px; /* Giới hạn chiều rộng của hình ảnh */
+        max-height: 150px; /* Giới hạn chiều cao của hình ảnh */
+        width: auto;
+        height: auto;
+        border: none; /* Loại bỏ viền */
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .table img {
+        max-width: 100%;
+        height: auto;
+      }
+      .table td.img-col {
+        width: 200px; /* Giới hạn chiều rộng của cột ảnh */
+        text-align: center; /* Căn giữa hình ảnh */
+      }
+    </style>
+  </head>
+  <body class="sub_page">
+    <div class="hero_area">
+      <div class="bg-box">
+        <img src="../assets/images/hero-bg.jpg" alt="" />
+      </div>
+      <!-- header section strats -->
+      <header class="header_section">
+        <div class="container">
+          <nav class="navbar navbar-expand-lg custom_nav-container">
+            <a class="navbar-brand" href="../index.php">
+              <span>Quản lý quán ăn</span>
+            </a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation">
+              <span class=""></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="../index.php">Home</a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">QL Menu</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../index.php?page=about">Thống kê</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </header>
+      <!-- end header section -->
+    </div>
+    <!-- quản lý menu -->
+    <section class="container mt-3">
+      <h2 class="text-center">Quản lý Menu</h2>
+
+      <!-- Một phím chức năng thêm món ăn, tìm kiếm món ăn: -->
+      <div class="container">
+        <button class="btn btn-primary float-lg-right m-3" data-toggle="modal" data-target="#addModal">Thêm món ăn mới</button>
+        <form action="" class="row">
+          <input type="text" id="search" placeholder="Tìm kiếm món ăn" class="col form-control mt-3 mb-3" />
+          <button type="submit" class="col-2 btn btn-info mt-3 mb-3 ml-2">Tìm kiếm</button>
+        </form>
+        <!-- Một table để hiển thị món ăn -->
+        <div id="menuList"></div>
+      </div>
+      <!-- Modal thêm món ăn -->
+      <div class="modal fade" id="addModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Thêm món ăn mới</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <form id="addForm" enctype="multipart/form-data">
+                <div class="form-group">
+                  <label for="ten_mon">Tên món:</label>
+                  <input type="text" class="form-control" id="ten_mon" name="ten_mon" required />
+                </div>
+                <div class="form-group">
+                  <label for="gia">Giá:</label>
+                  <input type="number" class="form-control" id="gia" name="gia" required />
+                </div>
+                <div class="form-group">
+                  <label for="loai">Loại:</label>
+                  <select type="text" class="form-control" id="loai" name="loai" required>
+                    <option value="Bánh">Bánh</option>
+                    <option value="Bún">Bún</option>
+                    <option value="Canh">Canh</option>
+                    <option value="Cơm">Cơm</option>
+                    <option value="Nước">Nước</option>
+                    <option value="Khác">Khác</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="hien_thi">Hiển thị:</label>
+                  <select class="form-control" id="hien_thi" name="hien_thi">
+                    <option value="1">On</option>
+                    <option value="0">Off</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="mo_ta">Mô tả:</label>
+                  <textarea class="form-control" id="mo_ta" name="mo_ta"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="hinh_anh">Hình ảnh:</label>
+                  <input type="file" class="form-control" id="hinh_anh" name="hinh_anh" />
+                </div>
+                <button type="submit" class="btn btn-primary">Thêm</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal chỉnh sửa món ăn -->
+      <div class="modal" id="editModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Chỉnh sửa món ăn</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <form id="editForm">
+                <input type="hidden" id="edit_id" name="id" />
+                <div class="form-group">
+                  <label for="edit_ten_mon">Tên món:</label>
+                  <input type="text" class="form-control" id="edit_ten_mon" name="ten_mon" required />
+                </div>
+                <div class="form-group">
+                  <label for="edit_gia">Giá:</label>
+                  <input type="number" class="form-control" id="edit_gia" name="gia" required />
+                </div>
+                <div class="form-group">
+                  <label for="edit_loai">Loại:</label>
+                  <select type="text" class="form-control" id="edit_loai" name="loai" required>
+                    <option value="Bánh">Bánh</option>
+                    <option value="Bún">Bún</option>
+                    <option value="Canh">Canh</option>
+                    <option value="Cơm">Cơm</option>
+                    <option value="Nước">Nước</option>
+                    <option value="Khác">Khác</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="edit_hien_thi">Hiển thị:</label>
+                  <select class="form-control" id="edit_hien_thi" name="hien_thi">
+                    <option value="1">On</option>
+                    <option value="0">Off</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="edit_mo_ta">Mô tả:</label>
+                  <textarea class="form-control" id="edit_mo_ta" name="mo_ta"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="edit_hinh_anh">Hình ảnh:</label>
+                  <input type="file" class="form-control" id="edit_hinh_anh" name="hinh_anh" placeholder="Chọn ảnh thay thế" />
+                </div>
+                <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal thông báo rằng có thành công thêm món mới/sửa, xóa thành công hay không: noticeModal_message -->
+      <div class="modal" id="noticeModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Thông báo</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" id="noticeModal_message">
+              <!-- Nội dung thông báo sẽ được chèn vào đây -->
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================SCRIPT XỬ LÝ =================================-->
+    <script>
+      $(document).ready(function () {
+        loadMenu()
+
+        $("#addForm").on("submit", function (e) {
+          e.preventDefault()
+          var formData = new FormData(this)
+
+          $.ajax({
+            url: "../be/chuQuan/add_menu.php",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+              $("#addModal").modal("hide")
+              $("#noticeModal_message").html(response)
+              $("#noticeModal").modal("show")
+              loadMenu()
+            },
+            error: function () {
+              //   $("#addModal").modal("hide")
+              $("#noticeModal_message").html("Có lỗi xảy ra, vui lòng thử lại.")
+              $("#noticeModal").modal("show")
+              //   loadMenu()
+            },
+          })
+        })
+
+        $("#search").on("keyup", function () {
+          var query = $(this).val()
+          loadMenu(query)
+        })
+
+        function loadMenu(query = "") {
+          $.ajax({
+            url: "../be/chuQuan/get_menu.php",
+            type: "GET",
+            data: {search: query},
+            success: function (data) {
+              $("#menuList").html(data)
+
+              // Thêm sự kiện click cho nút Sửa -> khi click vào sẽ hiển thị ra một modal chứa thông tin của món ăn đã chọn
+              $(".suaMonAn").on("click", function () {
+                // cái id hiện tại của cái btn mình đang click là id = 'suaID" .$id_mon_an. "' (nghĩa là nó ghép id thực sự của món ăn trong CSDL với chữ suaID
+                // cho nên chỉ cần bỏ cái chữ suaID đi là lấy đc cái id thực sự của món ăn trong CSDL
+                var id = $(this).attr("id").replace("suaID", "")
+                console.log(id)
+                $.ajax({
+                  url: "../be/chuQuan/get_mon_an_by_id.php",
+                  type: "GET",
+                  data: {id: id},
+                  success: function (data) {
+                    console.log(data) // Ghi lại phản hồi từ server
+                    try {
+                      // var menu = JSON.parse(data)
+                      // console.log(menu)
+                      var menu = data
+                      $("#edit_id").val(menu.id)
+                      $("#edit_ten_mon").val(menu.ten_mon)
+                      $("#edit_gia").val(menu.gia)
+                      $("#edit_loai").val(menu.loai)
+                      $("#edit_hien_thi").val(menu.hien_thi)
+                      $("#edit_mo_ta").val(menu.mo_ta)
+                      $("#edit_hinh_anh").val("")
+
+                      $("#editModal").modal("show")
+                    } catch (e) {
+                      console.error("Phản hồi không phải là JSON hợp lệ:", e)
+                    }
+                  },
+                })
+              })
+
+              // Thêm sự kiện click cho nút Xóa
+              $(".btn-danger").on("click", function () {
+                var id = $(this).attr("id").replace("xoaID", "")
+                if (confirm("Bạn có chắc chắn muốn xóa món ăn này không?")) {
+                  $.ajax({
+                    url: "../be/chuQuan/delete_monAn.php",
+                    type: "POST",
+                    data: {id: id},
+                    success: function (response) {
+                      $("#noticeModal_message").html(response)
+                      $("#noticeModal").modal("show")
+                      loadMenu()
+                    },
+                    error: function () {
+                      $("#noticeModal_message").html("Có lỗi xảy ra, vui lòng thử lại sau.")
+                      $("#noticeModal").modal("show")
+                    },
+                  })
+                }
+              })
+            },
+          })
+        }
+
+        $("#editForm").on("submit", function (e) {
+          e.preventDefault()
+          var formData = new FormData(this)
+          $.ajax({
+            url: "../be/chuQuan/update_menu.php",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+              $("#editModal").modal("hide")
+              $("#noticeModal_message").html(response)
+              $("#noticeModal").modal("show")
+              loadMenu()
+            },
+            error: function () {
+              $("#noticeModal_message").html("Có lỗi xảy ra, vui lòng thử lại.")
+              $("#noticeModal").modal("show")
+            },
+          })
+        })
+      })
+    </script>
+  </body>
+</html>

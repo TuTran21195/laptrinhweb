@@ -93,17 +93,13 @@ session_start();
                     <!-- Kiểm tra role nếu mà là khách hàng: có shoping cart, có nút đặt món link với menu-->
                     <?php if ($_SESSION['role'] == 'customer'): ?> 
                       <a href="##" class="cart-container">
-                        <i class="fas fa-shopping-cart cart-icon"></i>
-                        <span class="cart-badge">3</span> 
-                      </a>
-                      <form class="form-inline">
-                        <button class="btn my-2 my-sm-0 nav_search-btn" type="submit">
-                          <i class="fa fa-search" aria-hidden="true"></i>
-                        </button>
-                      </form>
-                      <div class="user_option">
-                        <a href=""  class="order_online">Đặt món online</a>
+                        <i class="fas fa-shopping-cart cart-icon">
+                          <span class="position-absolute top-0 start-50 translate-middle badge border border-light rounded-circle bg-danger p-2"><span class="visually-hidden"></span></span>
+                        </i>
+                        <div class="user_option">
+                        <a href="#"  class="order_online">Theo dõi đơn hàng</a>
                       </div>
+                    </a>
                     
                     <!-- Kiểm tra nếu mà là nhân viên/quản lý thì có thêm nút đưa họ đến trang quản trị của họ -->
                     <?php elseif ($_SESSION['role'] == 'sales'): ?>
@@ -112,7 +108,7 @@ session_start();
                       </div>
                     <?php elseif ($_SESSION['role'] == 'manager'): ?>
                       <div class="user_option">
-                        <a href="manager-dashboard.php"  class="order_online">Manager Dashboard</a>
+                        <a href="./views/manager-dashboard.html"  class="order_online">Manager Dashboard</a>
                       </div>
                     <?php endif; ?>
 

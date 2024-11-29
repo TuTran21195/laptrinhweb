@@ -92,6 +92,8 @@ Hy vọng giải thích này giúp bạn hiểu rõ hơn về luồng thực hi�
 - Nếu thỏa mãn, nó sẽ tạo ra một phiên đăng nhập và đồng thời gửi cho `views/login-page.html` một response json là chuyển hướng đến trang index.php. Khi này trang index.php gọi đến `includes/header.php` và tại đây nó sẽ kiểm tra phiên đăng nhập và sẽ hiển thị các chức năng trên navbar tương ứng với vai trò của người dùng.
 - Nếu username,password mà sai thì nó sẽ gửi cho `views/login-page.html` một response json là đăng nhập thất bại do sai username,password. 
 
+![Luồng thực hiện](../../assets/img-luong-thuc-hien/login-xu-ly.jpg "Luồng thực hiện cho việc login")
+
 # Logout
 Từ phần navbar tại `includes/header.php` nếu click vào đăng xuất sẽ được chuyển hướng đến file `logout.php`.
 
