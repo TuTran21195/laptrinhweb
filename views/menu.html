@@ -52,7 +52,7 @@
       </div>
       <!-- Thêm một modal để giúp việc KH chọn số lượng món ăn -->
       <div class="modal fade" id="quantityModal" tabindex="-1" role="dialog" aria-labelledby="quantityModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
+          <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
                   <div class="modal-header">
                       <h5 class="modal-title" id="quantityModalLabel">Chọn số lượng</h5>
@@ -69,8 +69,9 @@
               </div>
           </div>
       </div>
+
       <!-- MODAL GIỎ HÀNG =================== -->
-      <style>
+    <style>
         .modal-fullscreen {
           position: absolute;
             width: 100%;
@@ -91,46 +92,66 @@
         }
     </style>
 
-<div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="cartModalLabel">Giỏ hàng</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="cart-summary">
-                    <h5>Tổng tiền: <span id="total-price">0 VNĐ</span></h5>
+    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cartModalLabel">Giỏ hàng</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Hình ảnh</th>
-                            <th>Tên món</th>
-                            <th>Giá</th>
-                            <th>Số lượng</th>
-                            <th>Tổng</th>
-                        </tr>
-                    </thead>
-                    <tbody id="cart-items">
-                        <!-- Cart items will be loaded here via AJAX -->
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="delete-selected">Xóa món</button>
-                <button type="button" class="btn btn-primary" id="save-changes">Lưu thay đổi</button>
-                <button type="button" class="btn btn-success" id="place-order">Đặt hàng</button>
+                <div class="modal-body">
+                    <div class="cart-summary">
+                        <h5>Tổng tiền: <span id="total-price">0 VNĐ</span></h5>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Hình ảnh</th>
+                                <th>Tên món</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Tổng</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart-items">
+                            <!-- Cart items will be loaded here via AJAX -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="delete-selected">Xóa món</button>
+                    <button type="button" class="btn btn-primary" id="save-changes">Lưu thay đổi</button>
+                    <button type="button" class="btn btn-success" id="place-order">Đặt hàng</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+        <!-- modal thông báo thành công hay không -->
+        <div class="modal fade" id="thongbaoModal" tabindex="-1" role="dialog" aria-labelledby="thongbaoModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="thongbaoModalLabel">Thông báo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id = "thongbaoModal_content">
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
     <!-- end food section -->
-
+<!-- ======================================SCRIPT XỬ LÝ ============================== -->
   <!-- jQery -->
   <script src="./assets/js/jquery-3.4.1.min.js"></script>
   <script>
@@ -138,6 +159,7 @@
     $(document).ready(function() {
       loadFoodItems();
 
+        // Hiển thị menu các món ăn từ CSDL
       function loadFoodItems(type = '', search = '') {
           $.ajax({
               url: './be/khachHang/get_food_items.php',
@@ -177,7 +199,7 @@
               }
           });
       }
-
+    // Lọc theo loại món ăn
       $('.filters_menu li').click(function () {
           $('.filters_menu li').removeClass('active');
           $(this).addClass('active');
@@ -188,6 +210,7 @@
           loadFoodItems(type_mon_an, search);
       });
 
+      // Tìm kiếm món ăn
       $('#search-box').on("input", function() {
         let search = $(this).val();
         let type = $('.filters_menu li.active').attr('data-filter') || '';
@@ -195,7 +218,7 @@
         loadFoodItems(type, search);
       });
       
-      // Thêm sự kiện click cho biểu tượng giỏ hàng cạnh món ăn
+      // Thêm sự kiện click cho biểu tượng giỏ hàng cạnh món ăn: Chọn số  lượng món ăn
       $(document).on('click', '.cart-container', function(e) {
           e.preventDefault();
           let foodId = $(this).data('id');
@@ -210,13 +233,20 @@
               method: 'POST',
               data: { food_id: foodId, quantity: quantity },
               success: function(response) {
-                  alert('Đã thêm vào giỏ hàng!');
-                  $('#quantityModal').modal('hide');
-              }
+                //   alert('Đã thêm vào giỏ hàng!');
+                $('#quantityModal').modal('hide');
+                $('#thongbaoModal_content').html(response);
+                $('#thongbaoModal').modal('show');
+              },
+              error: function(){
+                $('#thongbaoModal_content').html("Có lỗi xảy ra, vui lòng thử lại sau!");
+                $('#thongbaoModal').modal('show');
+              },
+
           });
       });
 
-    // Hiển thị giỏ hàng: Khi MODAL giỏ hàng được show thì
+    // Hiển thị giỏ hàng: Khi MODAL giỏ hàng được show thì loadCartItems
     $('#cartModal').on('show.bs.modal', function() {
         loadCartItems();
     });
@@ -252,7 +282,7 @@
         });
     }
 
-    // Xóa món
+    // Xóa món ăn được chọn trong giỏ hàng
     $('#delete-selected').click(function() {
         let selectedItems = [];
         $('.select-item:checked').each(function() {
@@ -268,11 +298,13 @@
                 }
             });
         } else {
+            // $('#thongbaoModal_content').html("Vui lòng chọn ít nhất một món để xóa.");
+            // $('#thongbaoModal').modal('show');
             alert('Vui lòng chọn ít nhất một món để xóa.');
         }
     });
 
-    // Lưu thay đổi
+    // Lưu thay đổi của giỏ hàng
     $('#save-changes').click(function() {
         let cartUpdates = [];
         $('.item-quantity').each(function() {
@@ -289,6 +321,25 @@
             }
         });
     });
+    
+    // Nút đặt hàng: Không cần thêm trường dữ liệu nào gửi đi vì sẽ dùng user_id trong session để tìm các món trong tbl cart ở CSDL
+    $('#place-order').click(function(){
+        if(confirm("Bạn có chắc muốn đặt hàng ngay chứ?")){
+            $.ajax({
+                url: './be/khachHang/dat_hang.php',
+                method: 'POST',
+                success: function(response) {
+                    $('#thongbaoModal_content').html(response);
+                    $('#thongbaoModal').modal('show');
+                    // alert('Đơn hàng đã được đặt thành công!');
+                    $('#cartModal').modal('hide');
+    
+                    // Gửi thông điệp cập nhật đơn hàng mới
+                    // notifyNewOrder();
+                }
+            });
+        }
+    }); 
 
 
   })
