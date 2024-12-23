@@ -239,11 +239,20 @@
     <!-- =====================================SCRIPT XỬ LÝ =================================-->
     <script>
       $(document).ready(function () {
+        // Vừa vào cái là phải tải cái menu ngay
         loadMenu()
 
+        // Thêm món ăn mới
         $("#addForm").on("submit", function (e) {
           e.preventDefault()
           var formData = new FormData(this)
+
+          /*
+contentType: false:
+  Mặc định, contentType là "application/x-www-form-urlencoded; charset=UTF-8". Khi đặt contentType là false, bạn đang yêu cầu jQuery không thiết lập tiêu đề Content-Type cho yêu cầu. Điều này hữu ích khi bạn đang gửi dữ liệu dưới dạng FormData hoặc Blob, vì trình duyệt sẽ tự động thiết lập tiêu đề Content-Type phù hợp.
+processData: false:
+  Mặc định, jQuery sẽ chuyển đổi dữ liệu bạn cung cấp (thường là một đối tượng) thành một chuỗi truy vấn URL. Khi đặt processData là false, bạn đang yêu cầu jQuery không thực hiện chuyển đổi này. Điều này cần thiết khi bạn đang gửi dữ liệu dưới dạng FormData, vì FormData cần được gửi đi dưới dạng nó vốn có, không phải dưới dạng chuỗi truy vấn.
+          */
 
           $.ajax({
             url: "../be/chuQuan/add_menu.php",
@@ -278,6 +287,7 @@
           loadMenu(query)
         })
 
+        // Hiển thị danh sách món ăn trong CSDL
         function loadMenu(query = "") {
           $.ajax({
             url: "../be/chuQuan/get_menu.php",
@@ -342,6 +352,7 @@
           })
         }
 
+        // click vào nút Lưu thay đổi(submit) của cái editForm sửa món ăn
         $("#editForm").on("submit", function (e) {
           e.preventDefault()
           var formData = new FormData(this)

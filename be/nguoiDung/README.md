@@ -101,7 +101,7 @@ Trong file này có chứa phần hủy session id hiện tại đi và quay tr�
 
 Khi này đã quay lại trường hợp là trang `index.php` gọi đến `includes/header.php` và `includes/header.php` sẽ kiểm tra xem có phiên nào không → không có phiên thì hiển thị nút đăng nhập
 
-
+![Luồng thực hiện](../../assets/img-luong-thuc-hien/logout-xu-ly.jpg "Luồng thực hiện cho việc login")
 
 # Register
 Từ trang login được chuyển hướng đến trang Register nếu như người dùng chưa có tài khoản. 
@@ -116,3 +116,4 @@ Khi đã đảm bảo thì dùng AJAX để gửi yc POST đến `register.php` 
 
 Nếu người dùng chưa tồn tại,  `register.php` sẽ lưu thông tin người dùng vào csdl và gửi thông báo thành công cho FE.
 
+![Luồng thực hiện](../../assets/img-luong-thuc-hien/register-xu-ly.jpg "Luồng thực hiện cho việc login")

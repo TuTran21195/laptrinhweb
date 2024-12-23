@@ -111,7 +111,7 @@
     <script>
       $(document).ready(function () {
         $("form").submit(function (event) {
-          event.preventDefault() // Ngăn chặn form gửi thông thường
+          event.preventDefault() // Ngăn chặn form gửi ngay (phải chờ kiểm tra đúng format ko đã rồi xử lý tiếp)
           var phone = $("#sdt_id").val()
           var phonePattern = /^[0-9]+$/
 

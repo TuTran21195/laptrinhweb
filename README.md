@@ -29,25 +29,25 @@ Hệ thống quản lý quán ăn sẽ có ...
 
 ## Các Use Case toàn hệ thống
 UC chung cho các user: 
-1. Đăng ký tài khoản
-2. Đăng nhập, đăng xuẩt.
+1. ✔ Đăng ký tài khoản
+2. ✔ Đăng nhập, đăng xuẩt.
 3. Quản lý thông tin cá nhân (Đổi mật khẩu)
-4. Xem menu món ăn & Tìm kiếm món ăn trong menu
+4. ✔ Xem menu món ăn & Tìm kiếm món ăn trong menu
 
 UC dành cho khách hàng:
-1. Đặt món ăn online
-2. Hủy đơn online nếu như nhân viên chưa xác nhận.
+1. ✔ Đặt món ăn online
+2. Xem đơn đặt: click vào Theo dõi đơn hàng -> DS các đơn hàng đã đặt (từ mới nhất đến cũ nhất) -> click vào 1 đơn hàng -> đơn hàng chi tiết hiện ra: DS các món đặt trong đơn, số lượng, tổng tiền (same same hóa đơn)
+3. Hủy đơn online nếu như trạng thái đơn hàng vẫn đang là chưa xác nhận.
 
 UC dành cho nhân viên:
 1. Xem đơn đặt online của khách và xử lý: click xác nhận đơn & báo bếp làm → (bếp làm xong) click xong đơn → (khách thanh toán) in hóa đơn
 2. Nhận khách tại quầy (nhân viên thao tác đặt món cho khách): một số khách vãng lai không đặt đơn trên web thì có thể gọi món trực tiếp với nhân viên
 
 UC dành cho quản lý (Chủ quán, nhân viên quản lý cấp cao,...):
-1. Lên combo
-2. Thêm, sửa, xóa món ăn & Ẩn/hiện món trong menu (Không phải mùa nào cũng có món đó để phục vụ → ẩn món ăn đi, đến mùa lại hiện lên $\neq$ UC xóa món ăn)
-3. Thống kê doanh thu (ngày,tháng,quý,năm)
+1. ✔ Thêm, sửa, xóa món ăn & Ẩn/hiện món trong menu (Không phải mùa nào cũng có món đó để phục vụ → ẩn món ăn đi, đến mùa lại hiện lên $\neq$ UC xóa món ăn)
+2. Thống kê doanh thu (ngày,tháng,quý,năm)
 
-<div align = "center" style="color: yellow; font-size: 16px;"> → Như vậy tổng cộng có 11 UC.</div>
+<div align = "center" style="color: yellow; font-size: 16px;"> → Như vậy tổng cộng có 10 UC.</div>
 
 # Thiết kế chi tiết
 ## Các giao diện

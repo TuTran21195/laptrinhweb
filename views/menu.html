@@ -157,9 +157,10 @@
   <script>
 
     $(document).ready(function() {
+        // Vừa load trang là phải load menu luôn.
       loadFoodItems();
 
-        // Hiển thị menu các món ăn từ CSDL
+        // Hiển thị menu danh sách các món ăn từ CSDL
       function loadFoodItems(type = '', search = '') {
           $.ajax({
               url: './be/khachHang/get_food_items.php',
@@ -221,7 +222,9 @@
       // Thêm sự kiện click cho biểu tượng giỏ hàng cạnh món ăn: Chọn số  lượng món ăn
       $(document).on('click', '.cart-container', function(e) {
           e.preventDefault();
-          let foodId = $(this).data('id');
+        //   lấy cái id trong data-id="${item.id} (code : <a href="#" class="cart-container" data-id="${item.id}">
+          let foodId = $(this).data('id'); // = $item.id
+          // Lưu lại cái biến food-id = foodId vào DOM để chút nữa dùng đến nó khi click vào add-to-cart...
           $('#quantityModal').data('food-id', foodId).modal('show');
       });
 
@@ -246,7 +249,7 @@
           });
       });
 
-    // Hiển thị giỏ hàng: Khi MODAL giỏ hàng được show thì loadCartItems
+    // Hiển thị giỏ hàng: Khi MODAL giỏ hàng được show (show bằng cách click vào biểu tượng giỏ hàng trên navbar)thì loadCartItems
     $('#cartModal').on('show.bs.modal', function() {
         loadCartItems();
     });
